@@ -10,6 +10,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+# Fifa Data Set. Linear Chart Graph
+
 # Path to the data
 data_filepath = "input_data/fifa.csv"
 
@@ -36,7 +38,7 @@ plt.show()
 
 #__________________________________________________________________________________________
 
-# Another data set
+# Museum Visitors Data Set. Linear Chart Graph.
 
 # file path to the data
 museum_filepath = "input_data/museum_visitors.csv"
@@ -73,11 +75,41 @@ plt.show()
 
 #__________________________________________________________________________________________
 
-# Another data set
+# Flights Data Set. BarPlot & HeatMap Graphs.
+
+# ================ BarPlot =============================
 
 # Path of the file to read
 flight_filepath = "input_data/flight_delays.csv"
 
-# Read the file into a variable flight_data
+# Read the file into a variable flight_data, and setting Month column as an index
 flight_data = pd.read_csv(flight_filepath, index_col="Month")
 
+# Set the width and height of the figure
+plt.figure(figsize=(10,6))
+
+# Add title
+plt.title("Average Arrival Delay for Spirit Airlines Flights, by Month")
+
+# Bar chart showing average arrival delay for Spirit Airlines flights by month
+sns.barplot(x=flight_data.index, y=flight_data['NK'])
+
+# Add label for vertical axis
+plt.ylabel("Arrival delay (in minutes)")
+
+# Bar chart showing average arrival delay for Spirit Airlines flights by month
+sns.barplot(x=flight_data.index, y=flight_data['NK'])
+
+# ================ HeatMap =============================
+
+# Set the width and height of the figure
+plt.figure(figsize=(14,7))
+
+# Add title
+plt.title("Average Arrival Delay for Each Airline, by Month")
+
+# Add label for horizontal axis
+plt.xlabel("Airline")
+
+# Heatmap showing average arrival delay for each airline by month
+sns.heatmap(data=flight_data, annot=True)
