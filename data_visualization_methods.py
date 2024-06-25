@@ -97,9 +97,6 @@ sns.barplot(x=flight_data.index, y=flight_data['NK'])
 # Add label for vertical axis
 plt.ylabel("Arrival delay (in minutes)")
 
-# Bar chart showing average arrival delay for Spirit Airlines flights by month
-sns.barplot(x=flight_data.index, y=flight_data['NK'])
-
 # ================ HeatMap =============================
 
 # Set the width and height of the figure
@@ -113,3 +110,78 @@ plt.xlabel("Airline")
 
 # Heatmap showing average arrival delay for each airline by month
 sns.heatmap(data=flight_data, annot=True)
+
+#__________________________________________________________________________________________
+
+# IGN reviews Data Set. BarPlot & HeatMap Graphs.
+
+# ================ BarPlot =============================
+
+# Path of the file to read
+ign_filepath = "input_data/ign_scores.csv"
+
+# Read the file into a variable flight_data, and setting Platform column as an index
+ign_data = pd.read_csv(ign_filepath, index_col="Platform")
+
+# What is the highest average score received by PC games, for any genre?
+
+high_score = -1.0
+
+for col in ign_data[(ign_data.index == "PC")]:
+    cur_score = ign_data.at["PC",col]
+    if high_score < 0.0:
+        high_score = cur_score
+    if cur_score > high_score:
+        high_score = cur_score
+
+print("The highest average score received by PC games, for any genre = ", high_score)
+
+# On the Playstation Vita platform, which genre has the 
+# lowest average score? Please provide the name of the column, and put your answer 
+# in single quotes (e.g., 'Action', 'Adventure', 'Fighting', etc.)
+
+worst_genre = ""
+
+min_score = -1.0
+
+for col in ign_data[(ign_data.index == "PlayStation Vita")]:
+    cur_score = ign_data.at["PlayStation Vita",col]
+    if min_score < 0.0:
+        worst_genre = col
+        min_score = cur_score
+    if cur_score < min_score:
+        worst_genre = col
+        min_score = cur_score
+        
+print("worst_genre for Playstation Vita = ", worst_genre)
+
+# Bar chart showing average score for racing games by platform
+
+# Set the width and height of the figure
+plt.figure(figsize=(35,10))
+
+# Add title
+plt.title("Average score for racing games by platform")
+
+# Bar chart showing average arrival delay for Spirit Airlines flights by month
+sns.barplot(x=ign_data.index, y=ign_data['Racing'])
+
+# Add label for vertical axis
+plt.ylabel("Score Value")
+
+# ================ HeatMap =============================
+
+# Heatmap showing average game score by platform and genre
+
+# Set the width and height of the figure
+plt.figure(figsize=(14,7))
+
+# Add title
+plt.title("Average game score by platform and genre")
+
+# Add label for horizontal axis
+plt.xlabel("Platform")
+
+# Heatmap showing average arrival delay for each airline by month
+sns.heatmap(data=ign_data, annot=True)
+
