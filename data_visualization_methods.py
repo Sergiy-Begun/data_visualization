@@ -19,5 +19,7 @@ data_for_investigation = pd.read_csv(data_filepath, index_col="Date", parse_date
 # Set the width and height of the figure
 plt.figure(figsize=(16,6))
 
+plt.title("Historical FIFA rankings for six countries")
+
 # Line chart showing how data_for_investigation evolved over time 
 sns.lineplot(data=data_for_investigation)
