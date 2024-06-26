@@ -68,7 +68,7 @@ plt.xlabel("Date")
 # Add label for vertical axis
 plt.ylabel("The number of visitors per month")
 
-# Line chart showing how data_for_investigation evolved over time 
+# Line chart showing how museum_data evolved over time 
 sns.lineplot(data=museum_data)
 
 plt.show()
@@ -163,7 +163,7 @@ plt.figure(figsize=(35,10))
 # Add title
 plt.title("Average score for racing games by platform")
 
-# Bar chart showing average arrival delay for Spirit Airlines flights by month
+# Bar chart showing average score for racing games by platform
 sns.barplot(x=ign_data.index, y=ign_data['Racing'])
 
 # Add label for vertical axis
@@ -182,6 +182,30 @@ plt.title("Average game score by platform and genre")
 # Add label for horizontal axis
 plt.xlabel("Platform")
 
-# Heatmap showing average arrival delay for each airline by month
+# Heatmap showing average game score by platform and genre
 sns.heatmap(data=ign_data, annot=True)
+
+#__________________________________________________________________________________________
+
+# A (synthetic) dataset of insurance charges. Scatter Plot.
+
+# Path of the file to read
+insurance_filepath = "input_data/insurance.csv"
+
+# Read the file into a variable insurance_data
+insurance_data = pd.read_csv(insurance_filepath)
+
+# Set the width and height of the figure
+plt.figure(figsize=(14,7))
+
+# Add title
+plt.title("Average game score by platform and genre")
+
+# simple scatter plot
+sns.scatterplot(x=insurance_data['bmi'], y=insurance_data['charges'])
+
+# adding a regression line to that scatter plot (best fit of the data to check the dependences)
+sns.regplot(x=insurance_data['bmi'], y=insurance_data['charges'])
+
+
 
