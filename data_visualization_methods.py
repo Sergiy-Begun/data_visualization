@@ -187,7 +187,9 @@ sns.heatmap(data=ign_data, annot=True)
 
 #__________________________________________________________________________________________
 
-# A (synthetic) dataset of insurance charges. Scatter Plot.
+# A (synthetic) dataset of insurance charges. Scatter Plot. Color-coded scatter plots
+
+# ================ Scatter Plot =============================
 
 # Path of the file to read
 insurance_filepath = "input_data/insurance.csv"
@@ -199,13 +201,32 @@ insurance_data = pd.read_csv(insurance_filepath)
 plt.figure(figsize=(14,7))
 
 # Add title
-plt.title("Average game score by platform and genre")
+plt.title("Insurance charges dependence on body mass index (BMI)")
 
 # simple scatter plot
 sns.scatterplot(x=insurance_data['bmi'], y=insurance_data['charges'])
 
 # adding a regression line to that scatter plot (best fit of the data to check the dependences)
 sns.regplot(x=insurance_data['bmi'], y=insurance_data['charges'])
+
+# ================ Color-coded scatter plots =============================
+
+# Using the same data set
+
+# Set the width and height of the figure
+plt.figure(figsize=(14,7))
+
+# Add title
+plt.title("Insurance charges dependence on body mass index (BMI)")
+
+# use different color for data depending of smoker value ("yes" or "not", 
+# could be other color if, for example, smoker value would be "unknown" or something else)
+sns.scatterplot(x=insurance_data['bmi'], y=insurance_data['charges'], hue=insurance_data['smoker'])
+
+# adding separate regression lines for data of smokers and no-smokers using sns.lmplot
+sns.lmplot(x="bmi", y="charges", hue="smoker", data=insurance_data)
+
+
 
 
 
