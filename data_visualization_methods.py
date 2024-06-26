@@ -187,7 +187,8 @@ sns.heatmap(data=ign_data, annot=True)
 
 #__________________________________________________________________________________________
 
-# A (synthetic) dataset of insurance charges. Scatter Plot. Color-coded scatter plots
+# A (synthetic) dataset of insurance charges. Scatter Plot. Color-coded scatter plots.
+# Scatter plots for categorical variables
 
 # ================ Scatter Plot =============================
 
@@ -214,7 +215,7 @@ sns.regplot(x=insurance_data['bmi'], y=insurance_data['charges'])
 # Using the same data set
 
 # Set the width and height of the figure
-plt.figure(figsize=(14,7))
+plt.figure(figsize=(10,7))
 
 # Add title
 plt.title("Insurance charges dependence on body mass index (BMI)")
@@ -226,7 +227,92 @@ sns.scatterplot(x=insurance_data['bmi'], y=insurance_data['charges'], hue=insura
 # adding separate regression lines for data of smokers and no-smokers using sns.lmplot
 sns.lmplot(x="bmi", y="charges", hue="smoker", data=insurance_data)
 
+# ================ Scatter plots for categorical variables =============================
+
+# Using the same data set
+
+# Set the width and height of the figure
+plt.figure(figsize=(14,14))
+
+# Add title
+plt.title("Insurance charges dependence on smoking habits")
+
+# using sns.swarmplot command to plot dependence of charges on smoking habits
+sns.swarmplot(x=insurance_data['smoker'], y=insurance_data['charges'])
+
+#__________________________________________________________________________________________
+# Another data set on favorite candies
+
+# Path of the file to read
+candy_filepath = "input_data/candy.csv"
+ 
+# reading the data from file
+candy_data = pd.read_csv(candy_filepath,index_col="id")
+
+# Which candy was more popular with survey respondents:
+# '3 Musketeers' or 'Almond Joy'?
+more_popular = ""
+
+three_Musketeers_id = candy_data[(candy_data.competitorname == "3 Musketeers")].index[0]
+
+Almond_Joy_id = candy_data[(candy_data.competitorname == "Almond Joy")].index[0]
+
+if (candy_data.at[three_Musketeers_id,"winpercent"] > candy_data.at[Almond_Joy_id,"winpercent"]):
+    more_popular = "3 Musketeers"
+else:
+    more_popular = "Almond Joy"
+
+print("more_popular is ", more_popular)
+
+# Which candy has higher sugar content: 'Air Heads' or 'Baby Ruth'?
+more_sugar = ""
+
+Air_Heads_id = candy_data[(candy_data.competitorname == "Air Heads")].index[0]
+
+Baby_Ruth_id = candy_data[(candy_data.competitorname == "Baby Ruth")].index[0]
+
+if (candy_data.at[Air_Heads_id,"sugarpercent"] > candy_data.at[Baby_Ruth_id,"sugarpercent"]):
+    more_sugar = "Air Heads"
+else:
+    more_sugar = "Baby Ruth"
+
+# Scatter plot showing the relationship between 'sugarpercent' and 'winpercent'
+
+# Set the width and height of the figure
+plt.figure(figsize=(10,7))
+
+# Add title
+plt.title("Relationship between sugarpercent and winpercent")
+
+# simple scatter plot
+sns.scatterplot(x=candy_data["sugarpercent"], y=candy_data["winpercent"])
+
+# adding a regression line to that scatter plot (best fit of the data to check the dependences)
+sns.regplot(x=candy_data["sugarpercent"], y=candy_data["winpercent"])
+
+# Scatter plot showing the relationship between 'pricepercent', 'winpercent', and 'chocolate'
+
+# Set the width and height of the figure
+plt.figure(figsize=(10,7))
+
+# Add title
+plt.title("Relationship between pricepercent, winpercent, and chocolate")
+
+# using the color-coded scatter plot
+sns.scatterplot(x=candy_data["pricepercent"], y=candy_data["winpercent"], hue=candy_data["chocolate"])
+
+# adding separate regression lines for color-coded plot using sns.lmplot to investigate the influence of chocolate
+sns.lmplot(x="pricepercent", y="winpercent", hue="chocolate", data=candy_data)
+
+# Scatter plot showing the relationship between 'chocolate' and 'winpercent'
+
+# Set the width and height of the figure
+plt.figure(figsize=(14,14))
+
+# Add title
+plt.title("Relationship between chocolate and winpercent")
 
 
-
+# using sns.swarmplot command to plot dependence of 'winpercent' on 'chocolate'
+sns.swarmplot(x=candy_data["chocolate"], y=candy_data["winpercent"])
 
