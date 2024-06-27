@@ -321,6 +321,8 @@ sns.swarmplot(x=candy_data["chocolate"], y=candy_data["winpercent"])
 
 #__________________________________________________________________________________________
 # Distributions. Histograms. Kernel density estimate (KDE) plot.
+# Two-dimensional (2D) KDE plot (smoothed histogram with counts based on two columns data)
+# Color-coded plots
 
 # iris dataset
 
@@ -392,5 +394,55 @@ sns.jointplot(data=iris_data, x="Petal Length (cm)", y="Sepal Width (cm)", kind=
 
 # Add title
 plt.title("Distribution of Iris's Petal Length (cm)\nand Sepal Width (cm)\nfor Different Species (two-dimensional)")
+
+#__________________________________________________________________________________________
+# Distributions. Histograms. Kernel density estimate (KDE) plot.
+# Two-dimensional (2D) KDE plot (smoothed histogram with counts based on two columns data)
+# Color-coded plots
+
+# cancer dataset
+
+# Path of the files to read
+cancer_filepath = "input_data/cancer.csv"
+
+# Fill in the line below to read the file into a variable cancer_data
+cancer_data = pd.read_csv(cancer_filepath, index_col="Id")
+
+# In the first five rows of the data, what is the largest value for 'Perimeter (mean)'?
+max_perim = cancer_data.head()["Perimeter (mean)"].max()
+
+print("The largest value for \'Perimeter (mean)\' in the first five rows of the data is ", max_perim)
+
+# What is the value for 'Radius (mean)' for the tumor with Id 8510824?
+mean_radius = cancer_data[(cancer_data.index == 8510824)]["Radius (mean)"].iloc[0]
+
+print("The value for \'Radius (mean)\' for the tumor with Id 8510824 is ", mean_radius)
+
+# Histograms of Area (mean) for benign and maligant tumors
+
+# Column ('Diagnosis') classifies tumors as either benign (which appears in the dataset as B) or malignant (M)
+
+# Set the width and height of the figure
+plt.figure(figsize=(10,10))
+
+# Add title
+plt.title("Histograms of Area (mean) for benign and maligant tumors")
+
+# building the color-coded histogram with different colors for different diagnosis
+sns.histplot(data=cancer_data, x="Area (mean)", hue="Diagnosis")
+
+# KDE plot that show the distribution in values for 'Radius (worst)'
+# separately for both benign and malignant tumors
+
+# Set the width and height of the figure
+plt.figure(figsize=(10,10))
+
+# Add title
+plt.title("Distribution in values for \'Radius (worst)\' for benign and maligant tumors")
+
+# building color coded KDE plot with different colors for different diagnosis
+sns.kdeplot(data=cancer_data, x="Radius (worst)", hue="Diagnosis", fill=True)
+
+
 
 
