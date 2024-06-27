@@ -10,6 +10,10 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+# useful links to refresh knowledge
+# seaborn API reference https://seaborn.pydata.org/api.html
+# Matplotlib API Reference https://matplotlib.org/stable/api/index.html
+
 # Fifa Data Set. Linear Chart Graph
 
 # Path to the data
@@ -316,7 +320,7 @@ plt.title("Relationship between chocolate and winpercent")
 sns.swarmplot(x=candy_data["chocolate"], y=candy_data["winpercent"])
 
 #__________________________________________________________________________________________
-# Distributions
+# Distributions. Histograms. Kernel density estimate (KDE) plot.
 
 # iris dataset
 
@@ -326,12 +330,67 @@ iris_filepath = "input_data/iris.csv"
 # Reading the file into a variable iris_data stting column "Id" as an index column
 iris_data = pd.read_csv(iris_filepath, index_col="Id")
 
+# ================ Histogram (based on counts) =============================
+
 # Set the width and height of the figure
 plt.figure(figsize=(10,7))
 
 # Add title
 plt.title("Distribution of Iris's Petal Length")
 
-
 # building the histogram graph based on "Petal Length (cm)" column
 sns.histplot(iris_data['Petal Length (cm)'])
+
+# ================ Kernel density estimate (KDE) plot (smoothed histogram) =============================
+
+# Set the width and height of the figure
+plt.figure(figsize=(10,7))
+
+# Add title
+plt.title("Distribution of Iris's Petal Length")
+
+# KDE plot 
+sns.kdeplot(data=iris_data['Petal Length (cm)'], fill=True)
+
+# ================ Two-dimensional (2D) KDE plot (smoothed histogram with counts based on two columns data) =============================
+
+# Two-dimensional (2D) KDE plot based on "Petal Length (cm)" column data, and "Sepal Width (cm)" column data using sns.jointplot command
+sns.jointplot(x=iris_data["Petal Length (cm)"], y=iris_data["Sepal Width (cm)"], kind="kde", space=1.1)
+
+# Add title
+plt.title("Distribution of Iris's Petal Length (cm)\nand Sepal Width (cm) (two-dimensional)")
+
+# ================ Color-coded Histogram (based on counts) =============================
+
+# The same dataset
+
+# Set the width and height of the figure
+plt.figure(figsize=(10,7))
+
+# Add title
+plt.title("Distribution of Iris's Petal Length for Different Species")
+
+
+# The same histogram as before, but using different colors depending on specie value (column "Species")
+sns.histplot(data=iris_data, x="Petal Length (cm)", hue="Species")
+
+# ================ Color-coded Kernel density estimate (KDE) plot (smoothed histogram) =============================
+
+# Set the width and height of the figure
+plt.figure(figsize=(10,7))
+
+# Add title
+plt.title("Distribution of Iris's Petal Length for Different Species")
+
+# KDE plot 
+sns.kdeplot(data=iris_data, x="Petal Length (cm)", hue="Species", fill=True)
+
+# ================ Two-dimensional (2D) Color-coded KDE plot (smoothed histogram with counts based on two columns data) =============================
+
+# Two-dimensional (2D) KDE plot based on "Petal Length (cm)" column data, and "Sepal Width (cm)" column data using sns.jointplot command
+sns.jointplot(data=iris_data, x="Petal Length (cm)", y="Sepal Width (cm)", kind="kde", hue="Species", space=2.1)
+
+# Add title
+plt.title("Distribution of Iris's Petal Length (cm)\nand Sepal Width (cm)\nfor Different Species (two-dimensional)")
+
+
