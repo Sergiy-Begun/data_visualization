@@ -312,7 +312,26 @@ plt.figure(figsize=(14,14))
 # Add title
 plt.title("Relationship between chocolate and winpercent")
 
-
 # using sns.swarmplot command to plot dependence of 'winpercent' on 'chocolate'
 sns.swarmplot(x=candy_data["chocolate"], y=candy_data["winpercent"])
 
+#__________________________________________________________________________________________
+# Distributions
+
+# iris dataset
+
+# Path of the file to read
+iris_filepath = "input_data/iris.csv"
+
+# Reading the file into a variable iris_data stting column "Id" as an index column
+iris_data = pd.read_csv(iris_filepath, index_col="Id")
+
+# Set the width and height of the figure
+plt.figure(figsize=(10,7))
+
+# Add title
+plt.title("Distribution of Iris's Petal Length")
+
+
+# building the histogram graph based on "Petal Length (cm)" column
+sns.histplot(iris_data['Petal Length (cm)'])
